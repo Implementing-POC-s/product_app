@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("dbc24662-9bf6-4f81-af11-8fe8c0a44cbc")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b88b1a890e9e75103973fe8caf6ad2c55a188f59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+659366965828b744adb474923692b641097719c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

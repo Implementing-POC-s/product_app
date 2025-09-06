@@ -4,6 +4,8 @@ using AspCoreWebAPICRUD.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AspCoreWebAPICRUD.Repository;
+
 
 
 namespace AspCoreWebAPICRUD.Controllers
@@ -12,44 +14,42 @@ namespace AspCoreWebAPICRUD.Controllers
     [ApiController]
     public class ProductAPIController : ControllerBase
     {
-        private readonly ProjectDbContext context;
+        private readonly IProductRepository _repo;
 
-        public ProductAPIController(ProjectDbContext context)
+        public ProductAPIController(IProductRepository repo)
         {
-            this.context = context;
+            _repo=repo;
         }
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetProducts()
         {
-            var dto = await context.Products
-                .Select(p=> new ProductDTO
+            var products = await _repo.GetProductsAsync();
+
+                var dto=products.Select(p=> new ProductDTO
                 {
                     Id=p.PId,
                     Name=p.PName,
                     Price=p.Price
-                })
-                .ToListAsync();
+                }).ToList();
+ 
             return Ok(dto);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<AddProductDto>> GetProductById(int id)
         {
-            var data1 = await context.Products.FindAsync(id);
-            if (data1 == null)
+            var product = await _repo.GetProductByIdAsync(id);
+            if (product== null)
             {
                 return NotFound();
             }
-            var dto= await context.Products
-                .Where(p => p.PId == id)
-                .Select(p => new GetProductDto
-                {
-                    pId = p.PId,
-                    PName = p.PName,
-                    Price = p.Price
-                })
-                .FirstOrDefaultAsync();
+            var dto = new GetProductDto
 
-
+            {
+                pId = product.PId,
+                PName = product.PName,
+                Price = product.Price
+            };
+                
             return Ok(dto);
         }
 
@@ -63,8 +63,7 @@ namespace AspCoreWebAPICRUD.Controllers
                 PName = prod.PName,
                 Price = prod.Price
             };
-            await context.Products.AddAsync(entity);
-            await context.SaveChangesAsync();
+            await _repo.AddProductAsync(entity);
             var dto = new AddProductDto
             {
                 PId = entity.PId,
@@ -78,7 +77,7 @@ namespace AspCoreWebAPICRUD.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct(int id, Product prod)
         {
-            var entity = await context.Products.FindAsync(id);
+            var entity = await _repo.UpdateProductAsync(prod);
             if (entity == null)
             {
                 return NotFound();
@@ -87,20 +86,18 @@ namespace AspCoreWebAPICRUD.Controllers
             entity.PName = prod.PName;
             entity.Price = prod.Price;
 
-            await context.SaveChangesAsync();
 
             return Ok();
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var prod = await context.Products.FindAsync(id);
+            var prod = await _repo.DeleteProductAsync(id);
             if (prod == null)
             {
                 return NotFound();
             }
-            context.Products.Remove(prod);
-            await context.SaveChangesAsync();
+           
             var dto = new Product
             {
                 PId= prod.PId,

@@ -1,8 +1,10 @@
 using AspCoreWebAPICRUD.Models;
+using AspCoreWebAPICRUD.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddControllers()
        .AddJsonOptions(options =>
@@ -14,7 +16,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//register
+
 var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetRequiredService<IConfiguration>();
 builder.Services.AddDbContext<ProjectDbContext>(options =>
