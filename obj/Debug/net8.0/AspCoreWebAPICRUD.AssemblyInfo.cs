@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+659366965828b744adb474923692b641097719c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24a254692505711381102e37777b8002261c9e4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AspCoreWebAPICRUD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
