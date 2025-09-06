@@ -10,6 +10,7 @@ namespace AspCoreWebAPICRUD.Repository
         {
             _context = context;
         }
+        
         public async Task<List<Product>> GetProductsAsync()
         {
             return await _context.Products.ToListAsync();
