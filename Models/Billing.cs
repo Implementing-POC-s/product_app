@@ -19,4 +19,3 @@ public partial class Billing
     public virtual Product PIdNavigation { get; set; } = null!;
 }
 
-// I have changed something
