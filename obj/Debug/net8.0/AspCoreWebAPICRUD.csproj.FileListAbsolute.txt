@@ -1,0 +1,9 @@
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.csproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lenovo\source\repos\AspCoreWebAPICRUD\AspCoreWebAPICRUD\obj\Debug\net8.0\AspCoreWebAPICRUD.sourcelink.json
