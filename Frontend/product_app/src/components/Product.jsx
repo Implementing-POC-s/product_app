@@ -30,7 +30,7 @@ function Product() {
           <div>
               {products.map((product) => (
                   <div id={product.id}>
-                      <span>{product.name}</span>-<span>{product.price}</span>
+                      <span>{product.name}</span>-----<span>{product.price}</span>
                   </div>
               ))}
               </div>
