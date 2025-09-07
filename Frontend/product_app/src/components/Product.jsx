@@ -66,7 +66,7 @@ await axios.post(`${API_BASE_URL}/ProductAPI`, {
     } finally {
       setLoading(false)
     }
-  } --can also be hadled by ternary operator.
+  } //--can also be hadled by ternary operator.
 
   const handleEdit = (product) => {
     setForm({ PName: product.name, Price: product.price })
@@ -122,7 +122,7 @@ await axios.post(`${API_BASE_URL}/ProductAPI`, {
               setForm({ name: '', price: '' })
               setError(null)
             }}
-          >    -- can also be handle by ternary operator.
+          >    //-- can also be handle by ternary operator.
             Cancel
           </button>
         )}
