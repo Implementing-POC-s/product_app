@@ -7,6 +7,7 @@ namespace AspCoreWebAPICRUD.DTOs.ProductDto
     {
         public int pId { get; set; }
         public string PName { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
+        public string prod { get; set; }
     }
 }

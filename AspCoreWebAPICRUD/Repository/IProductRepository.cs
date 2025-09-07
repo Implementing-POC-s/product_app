@@ -5,9 +5,9 @@ namespace AspCoreWebAPICRUD.Repository
     public interface IProductRepository
     {
         Task<List<Product>> GetProductsAsync();
-        Task<Product> GetProductByIdAsync(int id);
+        Task<Product?> GetProductByIdAsync(int Id);
         Task<Product> AddProductAsync(Product product);
         Task<Product?> UpdateProductAsync(Product product);
-        Task<Product?> DeleteProductAsync(int id);
+        Task<bool> DeleteProductAsync(int Id);
     }
 }

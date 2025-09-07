@@ -1,4 +1,5 @@
 ﻿using AspCoreWebAPICRUD.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace AspCoreWebAPICRUD.Repository
 {
@@ -26,7 +27,7 @@ namespace AspCoreWebAPICRUD.Repository
             return product;
         }
 
-        public async Task<Product?> UpdateProductAsync(Product product)
+        public async Task<Product?> UpdateProductAsync( Product product)
         {
             var existing = await _context.Products.FindAsync(product.PId);
             if (existing == null)
@@ -38,19 +39,22 @@ namespace AspCoreWebAPICRUD.Repository
             await _context.SaveChangesAsync();
             return existing;
         }
-
-        public async Task<Product?> DeleteProductAsync(int id)
+        //delete related billings before deleting product to avoid fk constraints//
+        public async Task<bool> DeleteProductAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if(product == null)
+            if (product == null)
             {
-                return null;
+                return false;
             }
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return product;
+                var billings = _context.Billings.Where(b => b.PId == id);
+                _context.Billings.RemoveRange(billings);
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                return true;
+            }
         }
 
     }
-}
+
 
