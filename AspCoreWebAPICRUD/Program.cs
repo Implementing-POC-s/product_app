@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowReactApp");
+app.UseCors("AllowReactApp");//and here we use this cors policy.
 
 app.UseAuthorization();
 
