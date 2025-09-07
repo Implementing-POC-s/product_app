@@ -13,6 +13,7 @@ builder.Services.AddControllers()
            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
            options.JsonSerializerOptions.WriteIndented = true; 
        });
+//to allow all the requests from the server
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
