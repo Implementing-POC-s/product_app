@@ -20,7 +20,7 @@ namespace AspCoreWebAPICRUD.Controllers
             _repo = repo;
         }
 
-        // GET: api/ProductAPI
+        
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetProducts()
         {
@@ -35,7 +35,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dtoList);
         }
 
-        // GET: api/ProductAPI/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<GetProductDto>> GetProductById(int id)
         {
@@ -52,7 +52,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-        // POST: api/ProductAPI
+        //we are not supposed to use by id.
         [HttpPost]
         public async Task<ActionResult<GetProductDto>> CreateProduct([FromBody] AddProductDto dto)
         {
@@ -76,7 +76,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id = resultDto.pId }, resultDto);
         }
 
-        // PUT: api/ProductAPI/5
+        
         [HttpPut]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto dto)
         {
@@ -98,7 +98,6 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok();
         }
 
-        // DELETE: api/ProductAPI/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
