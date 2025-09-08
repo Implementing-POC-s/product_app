@@ -52,7 +52,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-        //we are not supposed to use by id.
+        //we are not supposed to use POST request by id.
         [HttpPost]
         public async Task<ActionResult<GetProductDto>> CreateProduct([FromBody] AddProductDto dto)
         {
