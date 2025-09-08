@@ -1,4 +1,4 @@
-﻿using AspCoreWebAPICRUD.Models;
+th﻿using AspCoreWebAPICRUD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace AspCoreWebAPICRUD.Repository
@@ -39,7 +39,7 @@ namespace AspCoreWebAPICRUD.Repository
             await _context.SaveChangesAsync();
             return existing;
         }
-        //delete related billings before deleting product to avoid fk constraints//
+        //delete related billings before deleting product to avoid fk constraints// *i neeed to modify this more.
         public async Task<bool> DeleteProductAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
