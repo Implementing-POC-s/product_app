@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "AspCoreWebAPICRUD\\AspCoreWebAPICRUD.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,11 +1,12 @@
 ﻿using AspCoreWebAPICRUD.DTOs;
 using AspCoreWebAPICRUD.DTOs.ProductDto;
 using AspCoreWebAPICRUD.Models;
-using AspCoreWebAPICRUD.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using AspCoreWebAPICRUD.Repository;
+
+
 
 namespace AspCoreWebAPICRUD.Controllers
 {
@@ -19,30 +20,30 @@ namespace AspCoreWebAPICRUD.Controllers
         {
             _repo = repo;
         }
-
-        // GET: api/ProductAPI
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetProducts()
         {
             var products = await _repo.GetProductsAsync();
-            var dtoList = products.Select(p => new ProductDTO
+
+            var dto = products.Select(p => new ProductDTO
             {
                 Id = p.PId,
                 Name = p.PName,
                 Price = p.Price
             }).ToList();
 
-            return Ok(dtoList);
+            return Ok(dto);
         }
-
-        // GET: api/ProductAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetProductDto>> GetProductById(int id)
+        public async Task<ActionResult<AddProductDto>> GetProductById(int id)
         {
             var product = await _repo.GetProductByIdAsync(id);
-            if (product == null) return NotFound();
-
+            if (product == null)
+            {
+                return NotFound();
+            }
             var dto = new GetProductDto
+
             {
                 pId = product.PId,
                 PName = product.PName,
@@ -52,59 +53,57 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-        // POST: api/ProductAPI
         [HttpPost]
-        public async Task<ActionResult<GetProductDto>> CreateProduct([FromBody] AddProductDto dto)
+        public async Task<ActionResult<Product>> CreateProduct([FromBody] AddProductDto prod)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var entity = new Product
             {
-                PName = dto.PName,
-                Price = dto.Price
+
+                PName = prod.PName,
+                Price = prod.Price,
+                 PId = prod.PId,
+
             };
-
             await _repo.AddProductAsync(entity);
-
-            var resultDto = new GetProductDto
+            var dto = new AddProductDto
             {
-                pId = entity.PId,
                 PName = entity.PName,
                 Price = entity.Price
             };
-
-            return CreatedAtAction(nameof(GetProductById), new { id = resultDto.pId }, resultDto);
+            return Ok(dto);
         }
 
-        // PUT: api/ProductAPI/5
+
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto dto)
+        public async Task<ActionResult> UpdateProduct([FromBody] UpdateProductDto prod)
         {
-            if (dto == null)
-                return BadRequest("Product data is required.");
+           
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var entity = await _repo.GetProductByIdAsync(dto.pId);
+            var entity = await _repo.GetProductByIdAsync(prod.pId);
             if (entity == null)
-                return NotFound($"No product found with ID = {dto.pId}");
+            {
+                return NotFound();
+            }
 
-            entity.PName = dto.PName;
-            entity.Price = dto.Price;
+            entity.PName = prod.PName;
+            entity.Price = prod.Price;
 
             await _repo.UpdateProductAsync(entity);
-
             return Ok();
         }
-
-        // DELETE: api/ProductAPI/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var deleted = await _repo.DeleteProductAsync(id);
-            if (!deleted) return NotFound();
+            var success = await _repo.DeleteProductAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            
             return Ok();
         }
+
     }
 }
