@@ -53,7 +53,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-        [HttpPost]
+        [HttpPost]//and we do use [FromBody]while using Put and Post.
         public async Task<ActionResult<Product>> CreateProduct([FromBody] AddProductDto prod)
         {
 
@@ -74,7 +74,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-
+        //remove unnecessary validation
         [HttpPut]
         public async Task<ActionResult> UpdateProduct([FromBody] UpdateProductDto prod)
         {

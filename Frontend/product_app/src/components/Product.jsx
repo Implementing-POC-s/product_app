@@ -9,6 +9,7 @@ function Product() {
   const [form, setForm] = useState({ name: '', price: '' })
   const [editingId, setEditingId] = useState(null)
   const [products, setProducts] = useState([])
+  const [selectedProductIndex, setSelectedProductIndex] = useState(null) 
 
   const fetchProducts = async () => {
     setLoading(true)
@@ -29,6 +30,24 @@ function Product() {
     }
   }
 
+  const handleDropdownChange = (e) => {
+    const selectedId = e.target.value
+    if (selectedId === '') {
+      setEditingId(null)
+      setForm({ name: '', price: '' })
+      setError(null)
+    } else {
+      const selectedProduct = products.find(p => p.id.toString() === selectedId)
+      if (selectedProduct) {
+        setForm({ name: selectedProduct.name, price: selectedProduct.price })
+        setEditingId(selectedProduct.id)
+        setError(null)
+      }
+    }
+  }
+
+  
+
   useEffect(() => {
     fetchProducts()
   }, [])
@@ -41,36 +60,53 @@ function Product() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name || !form.price) {
-      setError('Please fill in all fields')
+      setError('fill first')
       return
     }
     setLoading(true)
     setError(null)
     setSuccess(null)
     try {
-     
-      // Create product
-await axios.post(`${API_BASE_URL}/ProductAPI`, {
-  pName: form.name,   
-  price: form.price
-}, {
-  headers: { 'Content-Type': 'application/json' }
-})
+      if (editingId) {
+       
+        await axios.put(`${API_BASE_URL}/ProductAPI`, {
+          pId: editingId,
+          PName: form.name,
+          Price: Number(form.price)
+        }, {
+          headers: { 'Content-Type': 'application/json' }
+        })
+        setSuccess('Product updated successfully')
+      } else {
+       
+        await axios.post(`${API_BASE_URL}/ProductAPI`, {
+          pName: form.name,
+          price: Number(form.price)
+        }, {
+          headers: { 'Content-Type': 'application/json' }
+        })
         setSuccess('Product added successfully')
+      }
       setForm({ name: '', price: '' })
+      setEditingId(null)
       fetchProducts()
       setTimeout(() => setSuccess(null), 3000)
     } catch (error) {
       setError('Error saving product')
-      console.error('Error saving product:', error)
+      if (error.response) {
+        console.error('API error response:', error.response.data)
+      } else {
+        console.error('Error saving product:', error.message)
+      }
     } finally {
       setLoading(false)
     }
   }
 
-  const handleEdit = (product) => {
-    setForm({ PName: product.name, Price: product.price })
+  const handleEdit = (product, index) => {
+    setForm({ name: product.name, price: product.price })
     setEditingId(product.id)
+    setSelectedProductIndex(index) 
     setError(null)
   }
 
@@ -80,7 +116,7 @@ await axios.post(`${API_BASE_URL}/ProductAPI`, {
     setSuccess(null)
     try {
       await axios.delete(`${API_BASE_URL}/ProductAPI/${id}`)
-      setSuccess('Product deleted successfully')
+      setSuccess('deleted successfully')
       fetchProducts()
       setTimeout(() => setSuccess(null), 3000)
     } catch (error) {
@@ -97,6 +133,15 @@ await axios.post(`${API_BASE_URL}/ProductAPI`, {
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
+
+      <select onChange={handleDropdownChange} value={editingId || ''} style={{ marginBottom: '1rem', padding: '0.5rem' }}>
+        <option value="">Add new product</option>
+        {products.map(product => (
+          <option key={product.id} value={product.id}>
+            {product.name}
+          </option>
+        ))}
+      </select>
 
       <form className="product-form" onSubmit={handleSubmit}>
         <input
@@ -129,13 +174,13 @@ await axios.post(`${API_BASE_URL}/ProductAPI`, {
       </form>
 
       <ul className="product-list">
-        {products.map((product) => (
-          <li key={product.id} className="product-item">
-            <span>{product.name} - ${product.price}</span>
-            <div>
-              <button onClick={() => handleEdit(product)}>Edit</button>
-              <button onClick={() => handleDelete(product.id)}>Delete</button>
-            </div>
+        {products.map((product, index) => (
+          <li key={product.id} className="product-item" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', alignItems: 'center' }}>
+            {selectedProductIndex === index && (
+              <span style={{ marginRight: '10px', fontWeight: 'bold' }}>{`Product ${index + 1}`}</span>
+            )}
+            <button onClick={() => handleEdit(product, index)}>Edit</button>
+            <button onClick={() => handleDelete(product.id)}>Delete</button>
           </li>
         ))}
       </ul>
