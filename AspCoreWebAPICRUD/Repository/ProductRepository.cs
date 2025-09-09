@@ -25,7 +25,7 @@ namespace AspCoreWebAPICRUD.Repository
             await _context.SaveChangesAsync();
             return product;
         }
-        //remove unnecessary validation
+       
         public async Task<Product?> UpdateProductAsync(Product product)
         {
             var existing = await _context.Products.FindAsync(product.PId);

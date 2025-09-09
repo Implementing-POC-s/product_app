@@ -101,7 +101,7 @@ function Product() {
     } finally {
       setLoading(false)
     }
-  }
+  } //--can also be hadled by ternary operator.
 
   const handleEdit = (product, index) => {
     setForm({ name: product.name, price: product.price })
@@ -167,7 +167,7 @@ function Product() {
               setForm({ name: '', price: '' })
               setError(null)
             }}
-          >
+          >    //-- can also be handle by ternary operator.
             Cancel
           </button>
         )}

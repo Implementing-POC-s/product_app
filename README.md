@@ -1,7 +1,7 @@
-<<<<<<< HEAD
-# Product-management
-=======
-# product_app
-This is a simple product management CRUD application using DB first approach.
 
->>>>>>> 477b6f60127fb9df3dea5a83de59e0c7472daf4d
+# Product-management
+
+# product_app
+This is a simple product management CRUD application using DB First approach in which Model classes are genrated by itself using  Scaffold command...
+...But I am trying to use Domain Driven Design which can further allows monolithic applications to  be broken into Microservices which helps to work in  independent service irrespective of one another.
+

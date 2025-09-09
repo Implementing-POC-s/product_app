@@ -53,7 +53,7 @@ namespace AspCoreWebAPICRUD.Controllers
             return Ok(dto);
         }
 
-        [HttpPost]//and we do use [FromBody]while using Put and Post.
+        [HttpPost]//and we do use [FromBody]while using Put and Post .
         public async Task<ActionResult<Product>> CreateProduct([FromBody] AddProductDto prod)
         {
 
